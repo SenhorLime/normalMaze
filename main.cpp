@@ -8,13 +8,14 @@ using sf::Vector2f;
 int main(){
   sf::RenderWindow window(sf::VideoMode (960, 540), "Sprite Render Test"); // Criacao da janela 
   
-  IntRect characterTexture(3, 0, 10, 18); // Define uma area de corte na imagem do sprite
+  IntRect characterTexture(2, 2, 12, 15); // Define uma area de corte na imagem do sprite
   Vector2f upscaleCharacter(2.5f, 2.5f); // Aumenta o tamanho do Sprite em 2.5x
-
+  Vector2f position(100.0f, 100.f);
+  
   // Contrutor do objeto Sprite
-  calvoSprite characterSprite("Assets/Images/Characters/Calvo.png", characterTexture, upscaleCharacter); 
-  characterSprite.setPosition(100, 100); // Define a posicao inicial do Sprite
-
+  calvoSprite characterSprite("Assets/Images/Characters/Calvo.png", characterTexture, upscaleCharacter, position); 
+  
+  sf::Clock clock;
   while (window.isOpen()){
     sf::Event event;
 
@@ -23,6 +24,10 @@ int main(){
         window.close();
       }
     }
+    
+    float deltaTime = clock.restart().asSeconds();
+    characterSprite.update(deltaTime);
+    characterSprite.moveCharacter(&window);
 
     window.clear();
     characterSprite.drawCharacter(&window);
