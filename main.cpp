@@ -10,13 +10,13 @@
 int main() {
 	sf::RenderWindow gameWindow(sf::VideoMode(1024, 576), "Normal Maze :P");
 
-	Player player;
+	Player player1;
 
 	while (gameWindow.isOpen()) {
 		windowClose(gameWindow);
 
 		gameWindow.clear();
-		gameWindow.draw(player.getSprite());
+		player1.drawOnWindow(gameWindow);
 		gameWindow.display();
 	}
 

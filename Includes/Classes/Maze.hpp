@@ -1,8 +1,11 @@
+#ifndef MAZE_HPP
+#define MAZE_HPP
+
 #include "GameObject.hpp"
 
-class Maze : public GameObject {
+class Maze: public GameObject {
 private:
-	// Atributos especificos do Labirinto
 public:
-	// Metodos espeficos do Labirinto
 };
+
+#endif
