@@ -9,13 +9,18 @@
 
 int main() {
 	sf::RenderWindow gameWindow(sf::VideoMode(1024, 576), "Normal Maze :P");
+	sf::Clock gameTime;
 
 	Player player1;
+
 
 	while (gameWindow.isOpen()) {
 		windowClose(gameWindow);
 
+		float deltaTime = gameTime.restart().asSeconds();
+
 		gameWindow.clear();
+		player1.playerFunction(gameWindow, deltaTime);
 		player1.drawOnWindow(gameWindow);
 		gameWindow.display();
 	}
