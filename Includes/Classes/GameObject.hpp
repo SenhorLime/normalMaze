@@ -7,7 +7,7 @@ class GameObject {
 protected:
 	sf::Sprite objectSprite;
 public:
-	void drawOnWindow(sf::RenderWindow& window){
+	virtual void drawOnWindow(sf::RenderWindow& window){
 		window.draw(objectSprite);
 	}
 };

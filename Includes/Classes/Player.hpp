@@ -19,7 +19,7 @@ public:
 			playerTexture.loadFromFile("Assets/Characters/Males/M_01.png");
 		}
 
-		objectSprite.setScale(sf::Vector2f (2.5f, 2.5f));
+		objectSprite.setScale(sf::Vector2f (2.0f, 2.0f));
 		objectSprite.setTexture(playerTexture);
 		objectSprite.setTextureRect(sf::IntRect (2, 2, 12, 15));
 	}
