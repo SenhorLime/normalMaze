@@ -5,7 +5,7 @@
 *.o
 
 # Ignorando arquivos de Projeto do Eclipse
-/.cproject
+.cproject
 /.settings
-/.project
+.project
 /Debug
