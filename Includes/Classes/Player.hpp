@@ -12,14 +12,14 @@ private:
 	float deltaTime = 0;
 
 public:
-	Player() : playerSpeed(200.0f) {
+	Player() : playerSpeed(150.0f) {
 		if(!playerTexture.loadFromFile("Assets/Characters/Males/M_01.png")) {
 			std::cerr << "Falha ao carregar textura do jogador!";
 		} else {
 			playerTexture.loadFromFile("Assets/Characters/Males/M_01.png");
 		}
 
-		objectSprite.setScale(sf::Vector2f (2.0f, 2.0f));
+		objectSprite.setScale(sf::Vector2f (2.2f, 2.2f));
 		objectSprite.setTexture(playerTexture);
 		objectSprite.setTextureRect(sf::IntRect (2, 2, 12, 15));
 	}
@@ -61,7 +61,7 @@ public:
 		deltaTime = dt;
 	}
 
-	void playerFunction(sf::RenderWindow& window, float deltaTime){
+	void updatePlayer(sf::RenderWindow& window, float deltaTime){
 		handlePlayerInput(window);
 		updateDeltaTime(deltaTime);
 	}
