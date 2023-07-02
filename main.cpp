@@ -9,7 +9,7 @@
 #include "Includes/Functions/Window.hpp"
 
 int main() {
-	sf::RenderWindow gameWindow(sf::VideoMode(1024, 576), "Normal Maze :P");
+	sf::RenderWindow gameWindow(sf::VideoMode(1280, 720), "Normal Maze :P");
 	sf::Clock gameTime;
 
 	std::string mazeString =
@@ -27,10 +27,10 @@ int main() {
 			"#.#.................#.#.#.#.#\n"
 			"#.#########.#.#####.#.#.#.#.#\n"
 			"#.........#.#.#.............#\n"
-			"###########################.";
+			"###########################.#";
 
 	Player player1;
-	Maze maze(mazeString);
+	Maze maze(mazeString, gameWindow);
 
 	while (gameWindow.isOpen()) {
 		windowClose(gameWindow);
@@ -39,7 +39,7 @@ int main() {
 
 		gameWindow.clear();
 		maze.drawOnWindow(gameWindow);
-		player1.playerFunction(gameWindow, deltaTime);
+		player1.updatePlayer(gameWindow, deltaTime);
 		player1.drawOnWindow(gameWindow);
 		gameWindow.display();
 	}

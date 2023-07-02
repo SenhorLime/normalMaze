@@ -13,21 +13,19 @@ private:
 
 	sf::Texture wallTexture;
 	sf::Texture pathTexture;
-	sf::Texture startTexture;
-	sf::Texture exitTexture;
-public:
-	Maze(std::string &mazeString) {
+
+	void loadTextures() {
 		if (!wallTexture.loadFromFile("Assets/Maze/wall.png")
-				|| !pathTexture.loadFromFile("Assets/Maze/path.png")
-				|| !startTexture.loadFromFile("Assets/Maze/start.png")
-				|| !exitTexture.loadFromFile("Assets/Maze/exit.png")) {
-			std::cerr << "Falha ao carregar as texturas do labirinto";
+				|| !pathTexture.loadFromFile("Assets/Maze/path.png")) {
+			std::cerr << "Erro ao carregar texturas do Labirinto";
 		} else {
 			wallTexture.loadFromFile("Assets/Maze/wall.png");
 			pathTexture.loadFromFile("Assets/Maze/path.png");
-			startTexture.loadFromFile("Assets/Maze/start.png");
-			exitTexture.loadFromFile("Assets/Maze/exit.png");
 		}
+	}
+public:
+	Maze(std::string &mazeString, sf::RenderWindow &window) {
+		loadTextures();
 
 		std::vector<char> row;
 		for (char c : mazeString) {
@@ -40,12 +38,19 @@ public:
 		}
 		mazeData.push_back(row);
 
-		const int tileSize = 32;
+		const int tileSize = 40;
 		for (std::size_t y = 0; y < mazeData.size(); y++) {
 			for (std::size_t x = 0; x < mazeData[y].size(); x++) {
 				sf::Sprite mazeSprite;
 
-				mazeSprite.setPosition(x * tileSize, y * tileSize);
+				sf::Vector2i windowSize(window.getSize().x, window.getSize().y);
+				sf::Vector2i mazeSize(mazeData[0].size() * tileSize,
+						mazeData.size() * tileSize);
+				sf::Vector2i initialPosition( (windowSize.x - mazeSize.x) / 2,
+						(windowSize.y - mazeSize.y) / 2);
+
+				mazeSprite.setPosition(initialPosition.x + x * tileSize,
+						initialPosition.y + y * tileSize);
 
 				if (mazeData[y][x] == '#') {
 					mazeSprite.setTexture(wallTexture);
@@ -54,7 +59,7 @@ public:
 				}
 
 				objectSprite = mazeSprite;
-				objectSprite.setScale(sf::Vector2f(2.0f, 2.0f));
+				objectSprite.setScale(sf::Vector2f(2.5f, 2.5f));
 				spriteVector.push_back(objectSprite);
 			}
 		}
