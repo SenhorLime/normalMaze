@@ -1,6 +1,8 @@
-# Branch de Testes
+# Eclipse Branch
 
-A Branch de Testes contém códigos que são desenvolvidos e testados antes de serem mesclados na branch principal. Ela serve como um espaço dedicado para experimentação, correção de bugs e verificação da funcionalidade de novos recursos.
+Está branch fica os arquivos que foram compilados e editados pela IDE Eclipse, inicialmente um dos desenvolvedores estava usando o Neovim em conjunto com o Clang para edição do projeto.
+
+Agora toda a equipe usa a mesma IDE evitando assim possiveis conflitos de configuração e seguindo as instruções dadas pelo orientação do trabalho.
 ***
 
 ### O que está sendo usado:
