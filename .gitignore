@@ -1,4 +1,11 @@
-*.out
+# Ignorando arquivos executaveis
 *.exe
 *.app
+*.out
+*.o
 
+# Ignorando arquivos de Projeto do Eclipse
+.cproject
+/.settings
+.project
+/Debug
