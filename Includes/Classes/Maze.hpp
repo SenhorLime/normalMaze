@@ -7,13 +7,14 @@
 #include "GameObject.hpp"
 
 class Maze: public GameObject {
-private:
+private: // Variaveis privadas da Classe Maze
 	std::vector<std::vector<char>> mazeData;
 	std::vector<sf::Sprite> spriteVector;
 
 	sf::Texture wallTexture;
 	sf::Texture pathTexture;
 
+private: // Funcoes privadas da Classe Maze
 	void loadTextures() {
 		if (!wallTexture.loadFromFile("Assets/Maze/wall.png")
 				|| !pathTexture.loadFromFile("Assets/Maze/path.png")) {
@@ -23,6 +24,7 @@ private:
 			pathTexture.loadFromFile("Assets/Maze/path.png");
 		}
 	}
+
 public:
 	Maze(std::string &mazeString, sf::RenderWindow &window) {
 		loadTextures();

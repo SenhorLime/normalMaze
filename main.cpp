@@ -39,7 +39,7 @@ int main() {
 
 		gameWindow.clear();
 		maze.drawOnWindow(gameWindow);
-		player1.updatePlayer(gameWindow, deltaTime);
+		player1.updatePlayer(deltaTime);
 		player1.drawOnWindow(gameWindow);
 		gameWindow.display();
 	}
