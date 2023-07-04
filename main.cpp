@@ -12,6 +12,11 @@ int main() {
 	sf::RenderWindow gameWindow(sf::VideoMode(1280, 720), "Normal Maze :P");
 	sf::Clock gameTime;
 
+	//*****************************************Icone da janela*******************************************
+		sf::Image image = sf::Image { };
+		image.loadFromFile("Assets/Icons/monkey.jpg");
+		gameWindow.setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
+
 	Player player1;
 	Maze maze(gameWindow);
 
@@ -19,10 +24,10 @@ int main() {
 		windowClose(gameWindow);
 
 		float deltaTime = gameTime.restart().asSeconds();
-		player1.updatePlayer(deltaTime, maze);
 
 		gameWindow.clear();
 		maze.drawOnWindow(gameWindow);
+		player1.updatePlayer(deltaTime, maze);
 		player1.drawOnWindow(gameWindow);
 		gameWindow.display();
 	}
