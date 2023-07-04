@@ -65,13 +65,6 @@ private: // Funcoes privadas da classe Player
 		objectSprite.move(movement);
 	}
 
-public:
-	Player() :
-			playerSpeed(125.0f) {
-		loadTextures();
-		setSprites();
-	}
-
 	void setPreviousPosition() {
 		objectSprite.setPosition(previousPosition);
 	}
@@ -82,6 +75,13 @@ public:
 		 }
 
 		 return maze.checkCollision(objectSprite);
+	}
+
+public: // Funcoes publicas
+	Player() :
+			playerSpeed(150.0f) {
+		loadTextures();
+		setSprites();
 	}
 
 	void updatePlayer(float deltaTime, Maze &maze) {

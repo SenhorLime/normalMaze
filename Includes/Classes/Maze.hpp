@@ -8,11 +8,32 @@
 
 class Maze: public GameObject {
 private: // Variaveis privadas da Classe Maze
-	std::vector<std::vector<char>> mazeData;
-	std::vector<sf::Sprite> spriteVector;
 
+	// Variaveis da SFML
 	sf::Texture wallTexture;
 	sf::Texture pathTexture;
+
+	// Vector para controle do labirinto
+	std::vector<std::vector<char>> mazeData;
+	std::vector<sf::Sprite> wallSpriteVector;
+	std::vector<sf::Sprite> pathSpriteVector;
+
+	// String para construção do labirinto
+	std::string mazeString = "..###########################\n"
+			"....#.........#...#.#.......#\n"
+			"#.#########.#.###.#.#.#######\n"
+			"#.....#.....#.#.....#...#.#.#\n"
+			"#####.###.#.#####.#.#.###.#.#\n"
+			"#...#.#.#.#...#...#.....#...#\n"
+			"#.###.#.#.#####.###.#.###.###\n"
+			"#.#.........#.....#.#.#...#.#\n"
+			"#.#########.#####.#######.#.#\n"
+			"#.....#.......#.....#.#...#.#\n"
+			"#.#.#######.#####.###.#.###.#\n"
+			"#.#.................#.#.#.#.#\n"
+			"#.#########.#.#####.#.#.#.#.#\n"
+			"#.........#.#.#.............#\n"
+			"###########################.#";
 
 private: // Funcoes privadas da Classe Maze
 	void loadTextures() {
@@ -25,10 +46,7 @@ private: // Funcoes privadas da Classe Maze
 		}
 	}
 
-public:
-	Maze(std::string &mazeString, sf::RenderWindow &window) {
-		loadTextures();
-
+	void loadMazeRows() {
 		std::vector<char> row;
 		for (char c : mazeString) {
 			if (c == '\n') {
@@ -39,7 +57,9 @@ public:
 			}
 		}
 		mazeData.push_back(row);
+	}
 
+	void setMazeWalls(sf::RenderWindow &window) {
 		const int tileSize = 40;
 		for (std::size_t y = 0; y < mazeData.size(); y++) {
 			for (std::size_t x = 0; x < mazeData[y].size(); x++) {
@@ -60,13 +80,46 @@ public:
 
 				objectSprite = mazeSprite;
 				objectSprite.setScale(sf::Vector2f(2.5f, 2.5f));
-				spriteVector.push_back(objectSprite);
+				wallSpriteVector.push_back(objectSprite);
 			}
 		}
 	}
 
+	void setMazePath(sf::RenderWindow &window) {
+		const int tileSize = 40;
+		for (std::size_t y = 0; y < mazeData.size(); y++) {
+			for (std::size_t x = 0; x < mazeData[y].size(); x++) {
+				sf::Sprite mazeSprite;
+
+				sf::Vector2i windowSize(window.getSize().x, window.getSize().y);
+				sf::Vector2i mazeSize(mazeData[0].size() * tileSize,
+						mazeData.size() * tileSize);
+				sf::Vector2i initialPosition((windowSize.x - mazeSize.x) / 2,
+						(windowSize.y - mazeSize.y) / 2);
+
+				mazeSprite.setPosition(initialPosition.x + x * tileSize,
+						initialPosition.y + y * tileSize);
+
+				if (mazeData[y][x] == '.') {
+					mazeSprite.setTexture(pathTexture);
+				}
+
+				objectSprite = mazeSprite;
+				objectSprite.setScale(sf::Vector2f(2.5f, 2.5f));
+				pathSpriteVector.push_back(objectSprite);
+			}
+		}
+	}
+public:
+	Maze(sf::RenderWindow &window) {
+		loadTextures();
+		loadMazeRows();
+		setMazeWalls(window);
+		setMazePath(window);
+	}
+
 	bool checkCollision(sf::Sprite &playerSprite) {
-		for (auto &wallSprite : spriteVector) {
+		for (auto &wallSprite : wallSpriteVector) {
 			if (playerSprite.getGlobalBounds().intersects(
 					wallSprite.getGlobalBounds())) {
 				return true;
@@ -77,7 +130,11 @@ public:
 	}
 
 	void drawOnWindow(sf::RenderWindow &window) override {
-		for (auto &sprite : spriteVector) {
+		for (auto &sprite : wallSpriteVector) {
+			window.draw(sprite);
+		}
+
+		for (auto& sprite : pathSpriteVector) {
 			window.draw(sprite);
 		}
 	}
