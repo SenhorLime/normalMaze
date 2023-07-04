@@ -48,7 +48,7 @@ public:
 				sf::Vector2i windowSize(window.getSize().x, window.getSize().y);
 				sf::Vector2i mazeSize(mazeData[0].size() * tileSize,
 						mazeData.size() * tileSize);
-				sf::Vector2i initialPosition( (windowSize.x - mazeSize.x) / 2,
+				sf::Vector2i initialPosition((windowSize.x - mazeSize.x) / 2,
 						(windowSize.y - mazeSize.y) / 2);
 
 				mazeSprite.setPosition(initialPosition.x + x * tileSize,
@@ -56,8 +56,6 @@ public:
 
 				if (mazeData[y][x] == '#') {
 					mazeSprite.setTexture(wallTexture);
-				} else if (mazeData[y][x] == '.') {
-					mazeSprite.setTexture(pathTexture);
 				}
 
 				objectSprite = mazeSprite;
@@ -65,6 +63,17 @@ public:
 				spriteVector.push_back(objectSprite);
 			}
 		}
+	}
+
+	bool checkCollision(sf::Sprite &playerSprite) {
+		for (auto &wallSprite : spriteVector) {
+			if (playerSprite.getGlobalBounds().intersects(
+					wallSprite.getGlobalBounds())) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	void drawOnWindow(sf::RenderWindow &window) override {

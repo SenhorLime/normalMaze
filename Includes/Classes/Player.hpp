@@ -2,11 +2,13 @@
 #define PLAYER_HPP
 
 #include "GameObject.hpp"
+#include "Maze.hpp"
 using sf::Keyboard;
 
 class Player: public GameObject {
 private: // Variaveis privadas da classe Player
 	sf::Texture playerTexture;
+	sf::Vector2f previousPosition;
 
 	float playerSpeed;
 	float deltaTime = 0;
@@ -21,7 +23,7 @@ private: // Funcoes privadas da classe Player
 	}
 
 	void setSprites() {
-		objectSprite.setScale(sf::Vector2f(2.2f, 2.2f));
+		objectSprite.setScale(sf::Vector2f(2.0f, 2.0f));
 		objectSprite.setTexture(playerTexture);
 		objectSprite.setTextureRect(sf::IntRect(2, 2, 12, 15));
 	}
@@ -53,28 +55,38 @@ private: // Funcoes privadas da classe Player
 
 	}
 
-	void moveCharacter(const sf::Vector2f direction) {
-		sf::Vector2f movement = direction * playerSpeed * deltaTime;
-
-		objectSprite.move(movement);
-	}
-public:
-	Player() :
-			playerSpeed(150.0f) {
-		loadTextures();
-		setSprites();
-	}
-
 	void updateDeltaTime(float dt) {
 		deltaTime = dt;
 	}
 
-//	bool Player::isCollidingWith(const Maze &maze) const {
-//		const auto &wallSprites = maze.getWall
-//	}
+	void moveCharacter(const sf::Vector2f direction) {
+		previousPosition = objectSprite.getPosition();
+		sf::Vector2f movement = direction * playerSpeed * deltaTime;
+		objectSprite.move(movement);
+	}
 
-	void updatePlayer(float deltaTime) {
+public:
+	Player() :
+			playerSpeed(125.0f) {
+		loadTextures();
+		setSprites();
+	}
+
+	void setPreviousPosition() {
+		objectSprite.setPosition(previousPosition);
+	}
+
+	bool isCollidingWithMaze(Maze &maze) {
+		 if(maze.checkCollision(objectSprite) == true) {
+			 setPreviousPosition();
+		 }
+
+		 return maze.checkCollision(objectSprite);
+	}
+
+	void updatePlayer(float deltaTime, Maze &maze) {
 		handlePlayerInput();
+		isCollidingWithMaze(maze);
 		updateDeltaTime(deltaTime);
 	}
 };
