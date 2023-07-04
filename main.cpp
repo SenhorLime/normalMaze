@@ -18,6 +18,8 @@ int main() {
 		gameWindow.setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
 
 	Player player1;
+	Player1 player2;
+
 	Maze maze(gameWindow);
 
 	while (gameWindow.isOpen()) {
@@ -29,6 +31,9 @@ int main() {
 		maze.drawOnWindow(gameWindow);
 		player1.updatePlayer(deltaTime, maze);
 		player1.drawOnWindow(gameWindow);
+
+		player2.updatePlayer1(deltaTime, maze);
+		player2.drawOnWindow(gameWindow);
 		gameWindow.display();
 	}
 
