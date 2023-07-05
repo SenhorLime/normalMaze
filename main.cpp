@@ -10,12 +10,12 @@
 
 int main() {
 	sf::RenderWindow gameWindow(sf::VideoMode(1280, 720), "Normal Maze :P");
-	sf::Clock gameTime;
 
-	//*****************************************Icone da janela*******************************************
-		sf::Image image = sf::Image { };
-		image.loadFromFile("Assets/Icons/monkey.jpg");
-		gameWindow.setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
+	sf::Image gameIcon;
+	gameIcon.loadFromFile("Assets/Icons/normalMaze.png");
+	gameWindow.setIcon(gameIcon.getSize().x, gameIcon.getSize().y, gameIcon.getPixelsPtr());
+
+	sf::Clock gameTime;
 
 	Player player1;
 	SecondPlayer player2;
