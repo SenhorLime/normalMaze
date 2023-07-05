@@ -2,11 +2,9 @@
 #define PLAYER_HPP
 
 #include "GameObject.hpp"
-#include "Frames.hpp"
 #include "Maze.hpp"
 using sf::Keyboard;
 
-Frames playerFrame;
 class Player: public GameObject {
 private: // Variaveis privadas da classe Player
 	sf::Texture playerTexture;
@@ -35,22 +33,22 @@ private: // Funcoes privadas da classe Player
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::W)) {
 			movement.y -= 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(sf::IntRect(34, 2, 12, 15));
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::S)) {
 			movement.y += 1.0f;
-			objectSprite.setTextureRect(playerFrame.Down[0]);
+			objectSprite.setTextureRect(sf::IntRect(2, 2, 12, 15));
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::A)) {
 			movement.x -= 1.0f;
-			objectSprite.setTextureRect(playerFrame.Left[0]);
+			objectSprite.setTextureRect(sf::IntRect(52, 2, 9, 15));
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::D)) {
 			movement.x += 1.0f;
-			objectSprite.setTextureRect(playerFrame.Right[0]);
+			objectSprite.setTextureRect(sf::IntRect(19, 2, 9, 15));
 		}
 
 		moveCharacter(movement);
@@ -107,7 +105,7 @@ private: // Funcoes privadas da classe Player
 		if (!playerTexture.loadFromFile("Assets/Characters/Females/F_01.png")) {
 			std::cerr << "Falha ao carregar textura do jogador!";
 		} else {
-			playerTexture.loadFromFile("Assets/Characters/Females/F_07.png");
+			playerTexture.loadFromFile("Assets/Characters/Females/F_01.png");
 		}
 	}
 
@@ -122,22 +120,22 @@ private: // Funcoes privadas da classe Player
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::Up)) {
 			movement.y -= 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(sf::IntRect(34, 2, 12, 15));
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::Down)) {
 			movement.y += 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(sf::IntRect(2, 2, 12, 15));
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::Left)) {
 			movement.x -= 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(sf::IntRect(52, 2, 9, 15));
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::Right)) {
 			movement.x += 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(sf::IntRect(19, 2, 9, 15));
 		}
 
 		moveCharacter(movement);
