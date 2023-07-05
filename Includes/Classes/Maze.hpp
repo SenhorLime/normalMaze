@@ -9,6 +9,9 @@
 class Maze: public GameObject {
 private: // Variaveis privadas da Classe Maze
 
+	//Variavel para teste de vitoria
+	bool isVictory ;
+
 	// Variaveis da SFML
 	sf::Texture wallTexture;
 	sf::Texture pathTexture;
@@ -33,7 +36,7 @@ private: // Variaveis privadas da Classe Maze
 			"#.#.................#.#.#.#.#\n"
 			"#.#########.#.#####.#.#.#.#.#\n"
 			"#.........#.#.#.............#\n"
-			"###########################.#";
+			"###########################F#";
 
 private: // Funcoes privadas da Classe Maze
 	void loadTextures() {
@@ -112,11 +115,39 @@ private: // Funcoes privadas da Classe Maze
 	}
 public:
 	Maze(sf::RenderWindow &window) {
+		isVictory = false;
 		loadTextures();
 		loadMazeRows();
 		setMazeWalls(window);
 		setMazePath(window);
 	}
+
+	bool checkVictory( const sf::Sprite &playerSprite){
+		sf::Vector2f playerPosition = playerSprite.getPosition();
+		const int tileSize = 40;
+		sf::Vector2i initialPosition;
+
+		//Audio de vitoria
+		//sf::SoundBuffer Buffer;
+		//sf::Sound Sound;
+		//Sound.setBuffer(Buffer);
+
+
+		int  mazeX = static_cast<int>((playerPosition.x - initialPosition.x) / tileSize);
+		int mazeY = static_cast<int>((playerPosition.y - initialPosition.y) / tileSize);
+
+		  if (mazeData[mazeY][mazeX] == 'F') {
+		        isVictory = true;
+				/*if(!Buffer.loadFromFile("Assets/Sound/ fifa.aac")){
+					std::cout<<"erro";
+				} else if(isVictory == true){
+					return true;
+					//Sound.play();
+		        }*/
+
+		    }
+		  return false;
+ }
 
 	bool checkCollision(sf::Sprite &playerSprite) {
 		for (auto &wallSprite : wallSpriteVector) {

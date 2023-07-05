@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+#include <SFML/Audio.hpp>
 // Incluindo Header Files de Classes
 #include "Includes/Classes/Player.hpp"
 #include "Includes/Classes/Maze.hpp"
@@ -8,21 +8,32 @@
 // Incluindo Header Files de Funções
 #include "Includes/Functions/Window.hpp"
 
+void setMusic(sf::Music& music) {
+	music.openFromFile("Assets/Audio/Music/NightRunning.ogg");
+	music.play();
+	music.setVolume(100);
+	music.setLoop(true);
+}
+
 int main() {
 	sf::RenderWindow gameWindow(sf::VideoMode(1280, 720), "Normal Maze :P");
+
+	sf::Image gameIcon;
+	gameIcon.loadFromFile("Assets/Icons/normalMaze.png");
+	gameWindow.setIcon(gameIcon.getSize().x, gameIcon.getSize().y,
+			gameIcon.getPixelsPtr());
+
 	sf::Clock gameTime;
 
-	//*****************************************Icone da janela*******************************************
-		sf::Image image = sf::Image { };
-		image.loadFromFile("Assets/Icons/monkey.jpg");
-		gameWindow.setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
+	sf::Music backgroundMusic;
+	setMusic(backgroundMusic);
 
 	Player player1;
 	SecondPlayer player2;
 
 	Maze maze(gameWindow);
 
-	while (gameWindow.isOpen()) {
+	while (gameWindow.isOpen() && player1.isVictoryFinale(maze) == false && player2.isVictoryFinale(maze) == false) {
 		windowClose(gameWindow);
 
 		float deltaTime = gameTime.restart().asSeconds();
