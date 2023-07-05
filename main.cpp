@@ -11,7 +11,7 @@
 void setMusic(sf::Music& music) {
 	music.openFromFile("Assets/Audio/Music/NightRunning.ogg");
 	music.play();
-	music.setVolume(20);
+	music.setVolume(100);
 	music.setLoop(true);
 }
 
@@ -33,7 +33,7 @@ int main() {
 
 	Maze maze(gameWindow);
 
-	while (gameWindow.isOpen()) {
+	while (gameWindow.isOpen() && player1.isVictoryFinale(maze) == false && player2.isVictoryFinale(maze) == false) {
 		windowClose(gameWindow);
 
 		float deltaTime = gameTime.restart().asSeconds();

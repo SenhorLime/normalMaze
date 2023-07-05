@@ -86,6 +86,15 @@ public: // Funcoes publicas
 		setSprites();
 	}
 
+
+	bool isVictoryFinale(Maze &maze){
+		if(maze.checkVictory(objectSprite) == true){
+		     std::cout << "Parabéns, player venceu!" << std::endl;
+		}
+			return maze.checkVictory(objectSprite);
+	}
+
+
 	void updatePlayer(float deltaTime, Maze &maze) {
 		handlePlayerInput();
 		isCollidingWithMaze(maze);
@@ -127,17 +136,17 @@ private: // Funcoes privadas da classe Player
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::Down)) {
 			movement.y += 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(playerFrame.Down[0]);
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::Left)) {
 			movement.x -= 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(playerFrame.Left[0]);
 		}
 
 		if (sf::Keyboard::isKeyPressed(Keyboard::Right)) {
 			movement.x += 1.0f;
-			objectSprite.setTextureRect(playerFrame.Up[0]);
+			objectSprite.setTextureRect(playerFrame.Right[0]);
 		}
 
 		moveCharacter(movement);
@@ -171,6 +180,14 @@ public: // Funcoes publicas
 			playerSpeed(150.0f) {
 		loadTextures();
 		setSprites();
+	}
+
+
+	bool isVictoryFinale(Maze &maze){
+		if(maze.checkVictory(objectSprite) == true){
+		     std::cout << "Parabéns, player 2 venceu!" << std::endl;
+		}
+		return maze.checkVictory(objectSprite);
 	}
 
 	void updatePlayer(float deltaTime, Maze &maze) {
