@@ -11,7 +11,7 @@
 void setMusic(sf::Music& music) {
 	music.openFromFile("Assets/Audio/Music/NightRunning.ogg");
 	music.play();
-	music.setVolume(100);
+	music.setVolume(50);
 	music.setLoop(true);
 }
 
